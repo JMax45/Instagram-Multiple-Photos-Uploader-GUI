@@ -12,7 +12,7 @@ pip install instapy-cli
 ```
 Then download this repository.
 ## Usage
-The program is completely graphic so there should be no difficulty in using it
+The program is completely graphic so there should be no difficulty in using it.
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
