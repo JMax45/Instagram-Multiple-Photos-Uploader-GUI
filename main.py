@@ -6,6 +6,8 @@ from tkinter import *
 import tkinter as tk
 from tkinter import filedialog
 import threading
+from PIL import ImageTk,Image
+from tkinter.ttk import Progressbar
 
 window = Tk()
 window.geometry("500x400")
@@ -29,6 +31,10 @@ def upload():
     quantity = 0
     username = e_login.get()
     password = e_password.get()
+    progress=Progressbar(window,orient=HORIZONTAL,length=100,
+                         mode='determinate')
+    progress["maximum"] = length_onlyfiles
+    progress.place(y=190,x=197)
     with client(username, password) as cli:
         while quantity < length_onlyfiles:
             file_da_caricare = (filename +"/"+ onlyfiles[quantity])
@@ -42,6 +48,7 @@ def upload():
             global gaythanos
             bo2 = str(quantity+1)
             gaythanos = ("Uploading... "+"["+bo2+"/"+info_quantity+"] ")
+            progress['value']=quantity
 def start_submit_thread(event):
     global submit_thread
     submit_thread = threading.Thread(target=upload)
@@ -91,6 +98,18 @@ e_password.insert(0, 'Password...')
 e_password.bind('<FocusIn>', on_entry_click)
 e_password.bind('<FocusOut>', on_focusout)
 e_password.config(fg = 'grey')
+
+def show_password():
+    show_password_get = check_password_var.get()
+    if show_password_get == True:
+        e_password.config(show='')
+    if show_password_get == False:
+        e_password.config(show='*')
+        
+check_password_var = tk.BooleanVar()    
+check_password = Checkbutton(window, text="show", var=check_password_var,
+                             command=show_password)
+check_password.place(y=17,x=335)
 
 e = Entry(window,width=20)
 e.place(y = 100, x =167)
