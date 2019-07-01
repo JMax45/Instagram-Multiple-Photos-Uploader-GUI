@@ -64,6 +64,14 @@ def check_submit_thread():
     else:
         file_label.config(text="Upload Complete")
 
+def stop_upload_thread():
+    if submit_thread.is_alive():
+       submit_thread.stop()
+       print("Thread stopped")
+       stop_Button.delete()
+    else:
+       print("something occured")     
+
 file_label=Label(window,text="")
 file_label.place(y=170,x=167)
 
